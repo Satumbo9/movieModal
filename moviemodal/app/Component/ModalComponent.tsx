@@ -5,23 +5,22 @@ interface ModalProps {
 
     isOpen?: boolean,
     onClose?: ()=>void,
-    children?: React.ReactNode, 
+    children?: React.ReactNode,
+    className?: string, 
 }
 
 
 
-export const ModalComponent: React.FC<ModalProps>  = ({isOpen, onClose, children, ...props}) => {
+export const ModalComponent: React.FC<ModalProps>  = ({isOpen, onClose, children, className, ...props}) => {
 
     if(!isOpen) return null;
 
 
     return(
-        <div className='bg-red-' {...props}>
-            <div>
-          {children}
+        <div className={`bg-[yellow]  ${className}`} {...props}>
+        
+        {children}
           <button onClick={onClose}>Close</button>
-
-          </div>
         </div>
     )
     }

@@ -5,7 +5,7 @@ import {MOVIE_LIST} from '../Component/const/MOVIE_LIST';
 import React, {useState} from 'react';
 
 
-
+//Under modal description 
 
 
 export const ModalPage: React.FC = () =>{
@@ -18,8 +18,14 @@ export const ModalPage: React.FC = () =>{
 
 //Handling Modal on Click
 const OnclickModal = (movie)=>{
-    setModalOpened(true)
-    setMovieselected(movie);
+
+    if(isModalOpened && MovieSelected?.name=== movie.name){
+        closeModal();
+    }else{
+        setModalOpened(true)
+        setMovieselected(movie);
+    }
+
 }
 
 //Closing Modal
@@ -33,20 +39,27 @@ return(
  
         {MOVIE_LIST.map((item)=>(
         
-        <div onClick={()=> OnclickModal(item)}>
+        <div onClick={()=> OnclickModal(item)} className='cursor-pointer'>
             <div key={item.name} className=''>
-                <p className='text-[white]'>{item.name}</p>
+            <p className='text-[black] font-bold'>{item.name}</p>
+            
+           <p className='text-[black]'> {isModalOpened && (item.name === MovieSelected.name) &&( 
+            <ModalComponent 
+            className='flex'
+            
+            isOpen={isModalOpened} onClose={() => closeModal()}>
+            {MovieSelected.description}
+            </ModalComponent>)}</p>
+
+
+
             </div>
             
 
             </div>
         ))}
 
-        {isModalOpened && MovieSelected &&( 
-            <ModalComponent isOpen={isModalOpened} onClose={() => closeModal()}>
-            <p>{MovieSelected.name}</p>
-            {MovieSelected.description}
-            </ModalComponent>)}
+
 
 
 
